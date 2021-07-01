@@ -7,9 +7,8 @@ router.get("/exercise", (req, res) => {
 
 router.get("/stats", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/stats.html"))
-    // Render stats HTML page
-    res.render('stats');
 });
+
 
 module.exports = router;
 
