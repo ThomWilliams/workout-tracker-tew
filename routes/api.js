@@ -12,20 +12,7 @@ router.post("/api/workouts", (req, res) => {
     });
 });
 
-// PUT / Update - workouts with new exercise data
-router.put("/api/workouts/:id", ({ body, params }, res) => {
-  Workout.findByIdAndUpdate(params.id, { $push: { exercises: body } }, 
-    { new: true }
-  )
-  .then((dbWorkout) => {
-      res.json(dbWorkout);
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
-});
-
-// GET DATA - for each Workout
+// GET / READ DATA - for each Workout
 router.get("/api/workouts", (req, res) => {
     Workout.find({})
       .then((dbWorkout) => {
@@ -36,7 +23,7 @@ router.get("/api/workouts", (req, res) => {
       });
   });
 
-// GET DATA - for All Workouts
+// GET / READ DATA - for All Workouts
 router.get("/api/workouts", (req, res) => {
     Workout.aggregate([{
         $addFields: {
@@ -54,7 +41,7 @@ router.get("/api/workouts", (req, res) => {
   });
 
 
-// GET RANGE - of workouts, sorted by duration
+// GET / READ RANGE - of workouts, sorted by duration
 router.get("/api/workouts/range", (req, res) => {
     Workout.aggregate([{
         $addFields: {
@@ -74,6 +61,21 @@ router.get("/api/workouts/range", (req, res) => {
   });
 
 
+
+// PUT / Update - workouts with new exercise data
+router.put("/api/workouts/:id", ({ body, params }, res) => {
+    Workout.findByIdAndUpdate(params.id, { $push: { exercises: body } }, 
+      { new: true }
+    )
+    .then((dbWorkout) => {
+        res.json(dbWorkout);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  });
+
+  
 // DELETE - Workouts
 router.delete("/api/workouts", ({ body }, res) => {
     Workout.findByIdAndDelete(body.id)
