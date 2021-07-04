@@ -5,23 +5,13 @@ const Workout = require("../models/Workout.js");
 router.post("/api/workouts", (req, res) => {
   Workout.create({})
     .then((dbWorkout) => {
+      console.log("post", dbWorkout)
       res.json(dbWorkout);
     })
     .catch((err) => {
       res.status(400).json(err);
     });
 });
-
-// GET / READ DATA - for each Workout
-router.get("/api/workouts", (req, res) => {
-    Workout.find({})
-      .then((dbWorkout) => {
-        res.json(dbWorkout);
-      })
-      .catch((err) => {
-        res.status(400).json(err);
-      });
-  });
 
 // GET / READ DATA - for All Workouts
 router.get("/api/workouts", (req, res) => {
@@ -33,6 +23,7 @@ router.get("/api/workouts", (req, res) => {
         },
     }])
       .then((dbWorkouts) => {
+        console.log("get", dbWorkouts)
         res.json(dbWorkouts);
       })
       .catch((err) => {
@@ -86,7 +77,5 @@ router.delete("/api/workouts", ({ body }, res) => {
         res.status(400).json(err);
       });
   });
-
-
 
 module.exports = router;
